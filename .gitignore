@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Environment variables & secrets
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.cert
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Runtime
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local Scratch, Backups & Test Artifacts
+scratch/
+scratch_*.js
+test_*.js
+backup/
+backup_recovery/
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

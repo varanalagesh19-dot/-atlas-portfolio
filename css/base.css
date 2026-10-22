@@ -1,0 +1,210 @@
+/* ==========================================================================
+   ATLAS 3.0 — LUXURY EDITORIAL DESIGN SYSTEM: BASE & RESETS
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  color: var(--paper);
+  background: var(--bg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+  font-size: var(--body-regular);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  background-color: var(--bg);
+  color: var(--paper);
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+img, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   LOCKED TYPOGRAPHY SYSTEM
+   ========================================================================== */
+h1, .h1-display {
+  font-family: var(--font-display);
+  font-size: var(--display-lg);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  margin: 0 0 var(--space-4) 0;
+  color: var(--paper);
+}
+
+h2, .h2-display {
+  font-family: var(--font-display);
+  font-size: var(--display-md);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0 0 var(--space-3) 0;
+  color: var(--paper);
+}
+
+h3, .h3-display {
+  font-family: var(--font-display);
+  font-size: var(--display-sm);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-2) 0;
+  color: var(--paper);
+}
+
+p {
+  margin: 0 0 var(--space-3) 0;
+  color: var(--mist);
+  font-size: var(--body-regular);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+p.lead {
+  font-size: calc(var(--body-regular) * 1.125);
+  line-height: 1.6;
+  color: var(--paper);
+  font-weight: 400;
+}
+
+small, .text-small {
+  font-size: var(--body-small);
+  line-height: 1.5;
+  color: var(--mist);
+}
+
+/* JetBrains Mono reserved for Telemetry, Code, Badges, and Metadata */
+code, kbd, pre, samp, .mono-telemetry, .label-telemetry, .tag-mono {
+  font-family: var(--font-mono);
+  font-size: var(--code-size);
+  letter-spacing: -0.01em;
+}
+
+.label-telemetry {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-ink);
+  letter-spacing: 0.08em;
+}
+
+[data-theme="dark"] .label-telemetry {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   FOCUS-VISIBLE RINGS (ACCESSIBILITY)
+   ========================================================================== */
+:focus {
+  outline: none;
+}
+
+:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 3px;
+}
+
+[data-theme="dark"] :focus-visible,
+[data-theme="dark"] button:focus-visible,
+[data-theme="dark"] a:focus-visible,
+[data-theme="dark"] input:focus-visible,
+[data-theme="dark"] select:focus-visible,
+[data-theme="dark"] textarea:focus-visible,
+[data-theme="dark"] [tabindex]:focus-visible {
+  outline-color: var(--accent);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background: var(--paper);
+  color: var(--bg);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  z-index: 99999;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  transition: top var(--dur) var(--ease);
+}
+
+.skip-link:focus-visible {
+  top: 16px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   REDUCED-MOTION GUARD (!important strictly permitted here only)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
+  }
+}

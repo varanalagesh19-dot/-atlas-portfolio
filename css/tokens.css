@@ -1,0 +1,202 @@
+/* ==========================================================================
+   ATLAS 2026 — CREATIVE FUTURISTIC IDENTITY: MASTER DESIGN TOKENS
+   Art Direction: Creative Agency meets Futuristic AI Developer Workspace
+   Palette Architecture:
+     - Jet Black:    #0B0B0B (45% black & charcoal surfaces)
+     - Charcoal:     #151515
+     - Lavender:     #CBB3E8 (25% lavender surfaces, panels, gradients, visual fields)
+     - Chartreuse:   #D4FF3F (15% chartreuse highlights & interactive elements)
+     - Warm White:   #F8F7F4 (10% warm white typography & light surfaces)
+     - Hot Pink:     #FF2DAB (5% creative details & accents)
+     - Tomato Red:   #E34234 (Project-specific alert / status accents)
+   ========================================================================== */
+
+/* LIGHT THEME (Warm White & Soft Lavender Surfaces with Charcoal Typography & Chartreuse Highlights) */
+:root, [data-theme="light"], body.theme-light {
+  /* Core Color Palette */
+  --bg: #F8F7F4;                            /* Warm White canvas */
+  --bg-secondary: #EBE3F7;                  /* Soft Lavender atmospheric surface */
+  --bg-translucent: rgba(248, 247, 244, 0.90);
+  --surface: #FFFFFF;                       /* Clean elevated surface */
+  --surface-elevated: #FAF8FE;
+  --secondary-surface: #F0EBF9;
+  --surface-lavender: #EBE3F7;
+
+  /* Typography & Contrast (Strict WCAG AAA readability) */
+  --paper: #151515;                         /* Deep Charcoal headings & primary text */
+  --mist: #2E2838;                          /* High-contrast body text */
+  --muted: #6E667B;                         /* Lavender-tinted clear captions / metadata */
+
+  /* Primary Interactive & Brand Accents */
+  --accent: #D4FF3F;                        /* High-voltage Chartreuse */
+  --accent-ink: #3D5800;                    /* High-contrast deep chartreuse for readable text on light mode */
+  --accent-border: #8BB800;                  /* Crisp defined chartreuse border */
+  --accent-hover: #C2F024;                  /* Rich chartreuse hover */
+  --accent-text: #0B0B0B;                   /* Near-black text on chartreuse */
+  --accent-secondary: #CBB3E8;              /* Soft creative Lavender */
+  --accent-secondary-hover: #B598DC;
+  --accent-lavender: #8B5CF6;               /* High-contrast lavender for light mode text */
+  --accent-pink: #FF2DAB;                   /* Hot Pink creative detail */
+  --accent-red: #E34234;                    /* Tomato Red */
+
+  --dark-section: #151515;
+  --faint: rgba(203, 179, 232, 0.22);       /* Lavender faint tint */
+  --faint-chartreuse: rgba(212, 255, 63, 0.40);
+  --faint-pink: rgba(255, 45, 171, 0.16);
+
+  /* Creative Signature Accents */
+  --creative-lavender: #CBB3E8;
+  --creative-lavender-faint: rgba(203, 179, 232, 0.25);
+  --creative-lavender-border: rgba(139, 92, 246, 0.35);
+  --creative-chartreuse: #D4FF3F;
+  --creative-chartreuse-ink: #3D5800;
+  --creative-chartreuse-faint: rgba(212, 255, 63, 0.35);
+  --creative-chartreuse-border: #8BB800;
+  --creative-pink: #FF2DAB;
+  --creative-pink-faint: rgba(255, 45, 171, 0.16);
+  --creative-red: #E34234;
+
+  /* Glassmorphism & Translucent Panels */
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-bg-hover: #FFFFFF;
+  --card-border: rgba(139, 92, 246, 0.22);  /* Subtle lavender border */
+  --card-border-hover: #8BB800;             /* Defined Chartreuse on hover */
+  --glass-bg: rgba(248, 247, 244, 0.88);
+  --glass-border: rgba(203, 179, 232, 0.45);
+  --glass-highlight: rgba(255, 255, 255, 0.98);
+  --accent-glow: rgba(212, 255, 63, 0.45);
+  --lavender-glow: rgba(203, 179, 232, 0.45);
+  --pink-glow: rgba(255, 45, 171, 0.35);
+
+  /* Refined Shadow Scale */
+  --shadow-sm: 0 2px 8px rgba(21, 21, 21, 0.05);
+  --shadow-md: 0 8px 24px -4px rgba(21, 21, 21, 0.08), 0 0 16px rgba(203, 179, 232, 0.25);
+  --shadow-lg: 0 16px 40px -8px rgba(21, 21, 21, 0.12), 0 0 28px rgba(203, 179, 232, 0.35);
+  --shadow-glow: 0 0 24px rgba(212, 255, 63, 0.40);
+  --shadow-card: var(--shadow-md);
+  --shadow-card-hover: var(--shadow-lg), var(--shadow-glow);
+
+  --selection-bg: #D4FF3F;
+  --selection-text: #151515;
+
+  /* Typography Scale */
+  --font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Display Sizes */
+  --display-lg: clamp(2.5rem, 5vw, 4.25rem);
+  --display-md: clamp(1.75rem, 3.2vw, 2.5rem);
+  --display-sm: clamp(1.2rem, 2vw, 1.6rem);
+
+  /* Body Sizes */
+  --body-regular: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  --body-small: clamp(0.8125rem, 0.95vw, 0.875rem);
+  --code-size: 0.8125rem;
+
+  /* Motion & Radius Tokens */
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --dur: 340ms;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 9999px;
+
+  /* Spacing Scale */
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  --margin: clamp(20px, 4vw, 64px);
+  --lane: clamp(80px, 9vw, 120px);
+  --top-space: clamp(80px, 10vh, 104px);
+
+  color-scheme: light;
+}
+
+/* DARK THEME (Jet Black & Charcoal with Lavender Panels, Chartreuse Highlights & Hot Pink Details) */
+[data-theme="dark"], body.theme-dark {
+  /* Core Color Palette */
+  --bg: #0B0B0B;                            /* Jet Black canvas */
+  --bg-secondary: #151515;                  /* Deep Charcoal surface */
+  --bg-translucent: rgba(11, 11, 11, 0.86);
+  --surface: #151515;                       /* Charcoal panel */
+  --surface-elevated: #1D1D22;              /* Elevated dark card */
+  --secondary-surface: #1F1F26;
+  --surface-lavender: rgba(203, 179, 232, 0.08);
+
+  /* Typography & Contrast (Strict WCAG AAA readability) */
+  --paper: #F8F7F4;                         /* Warm White text */
+  --mist: #D5CEE5;                          /* Soft Lavender-tinted secondary text */
+  --muted: #8E879C;                         /* Clear muted captions */
+
+  /* Primary Interactive & Brand Accents */
+  --accent: #D4FF3F;                        /* Saturated electric Chartreuse */
+  --accent-ink: #D4FF3F;
+  --accent-border: #D4FF3F;
+  --accent-hover: #E3FF75;                  /* Electric lime-chartreuse */
+  --accent-text: #0B0B0B;                   /* Jet Black on chartreuse */
+  --accent-secondary: #CBB3E8;              /* Glossy creative Lavender */
+  --accent-secondary-hover: #E0CEF8;
+  --accent-lavender: #CBB3E8;
+  --accent-pink: #FF2DAB;                   /* Hot Pink creative detail */
+  --accent-red: #E34234;                    /* Tomato Red */
+
+  --dark-section: #0B0B0B;
+  --faint: rgba(203, 179, 232, 0.12);       /* Lavender translucent glow */
+  --faint-chartreuse: rgba(212, 255, 63, 0.14);
+  --faint-pink: rgba(255, 45, 171, 0.14);
+
+  /* Creative Signature Accents */
+  --creative-lavender: #CBB3E8;
+  --creative-lavender-faint: rgba(203, 179, 232, 0.15);
+  --creative-lavender-border: rgba(203, 179, 232, 0.32);
+  --creative-chartreuse: #D4FF3F;
+  --creative-chartreuse-faint: rgba(212, 255, 63, 0.16);
+  --creative-chartreuse-border: rgba(212, 255, 63, 0.40);
+  --creative-pink: #FF2DAB;
+  --creative-pink-faint: rgba(255, 45, 171, 0.16);
+  --creative-red: #E34234;
+
+  /* Transparent Glass Surfaces */
+  --card-bg: rgba(21, 21, 21, 0.82);
+  --card-bg-hover: rgba(29, 29, 34, 0.92);
+  --card-border: rgba(203, 179, 232, 0.22); /* Lavender borders */
+  --card-border-hover: #D4FF3F;             /* Chartreuse active hover */
+  --glass-bg: rgba(21, 21, 21, 0.82);
+  --glass-border: rgba(203, 179, 232, 0.26);
+  --glass-highlight: rgba(255, 255, 255, 0.08);
+  --accent-glow: rgba(212, 255, 63, 0.35);
+  --lavender-glow: rgba(203, 179, 232, 0.35);
+  --pink-glow: rgba(255, 45, 171, 0.35);
+
+  /* Single Shadow Scale */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.65);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.80), 0 0 16px rgba(203, 179, 232, 0.12);
+  --shadow-lg: 0 16px 40px -8px rgba(0, 0, 0, 0.95), 0 0 28px rgba(203, 179, 232, 0.20);
+  --shadow-glow: 0 0 24px rgba(212, 255, 63, 0.35);
+  --shadow-card: var(--shadow-md);
+  --shadow-card-hover: var(--shadow-lg), var(--shadow-glow);
+
+  --selection-bg: #D4FF3F;
+  --selection-text: #0B0B0B;
+
+  color-scheme: dark;
+}
+
+/* Universal Named Tokens */
+:root {
+  --jet-black: #0B0B0B;
+  --charcoal: #151515;
+  --lavender: #CBB3E8;
+  --chartreuse: #D4FF3F;
+  --hot-pink: #FF2DAB;
+  --tomato-red: #E34234;
+  --warm-white: #F8F7F4;
+
+  --font-heading: var(--font-display);
+}

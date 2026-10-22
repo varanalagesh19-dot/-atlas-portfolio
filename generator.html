@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ATLAS 3D Cinematic Video Asset Generator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    body {
+      background: #08090A;
+      color: #F5F1E8;
+      font-family: monospace;
+      margin: 0;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #render-canvas {
+      width: 960px;
+      height: 540px;
+      border: 1px solid rgba(203, 179, 232, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      background: #08090A;
+    }
+    #status-box {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #D4FF3F;
+      text-align: center;
+      max-width: 960px;
+    }
+    .progress-bar {
+      width: 960px;
+      height: 6px;
+      background: #171819;
+      margin-top: 10px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #80612F, #D4FF3F, #CBB3E8);
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="color: #F5F1E8; margin-bottom: 8px;">ATLAS // 3D Cinematic Project Video Generator</h2>
+  <p style="color: #A5A19A; margin-top: 0;">Rendering 1920x1080 30fps VP9 WebM assets for all 8 verified repositories...</p>
+  
+  <canvas id="render-canvas" width="1280" height="720"></canvas>
+  
+  <div class="progress-bar">
+    <div id="progress-fill" class="progress-fill"></div>
+  </div>
+  
+  <div id="status-box">Initializing 3D Cinematic Pipeline...</div>
+
+  <script>
+    const PROJECTS = [
+      { slug: 'intellipdf', title: 'IntelliPDF // RAG Architecture', type: 'rag' },
+      { slug: 'solvex-ner', title: 'SOLVEX // NER Accessibility Platform', type: 'terrain' },
+      { slug: 'linkx', title: 'LINKX // Multimodal AI Vision', type: 'vision' },
+      { slug: 'atlas-ai', title: 'atlasAI // Multi-Model Orchestration', type: 'neural' },
+      { slug: 'smart-agriculture', title: 'Smart Agriculture // IoT Soil Telemetry', type: 'iot' },
+      { slug: 'base-isolation', title: 'Bumblebee // Base Isolation Seismic Dynamics', type: 'seismic' },
+      { slug: 'nvidia-ai-chat', title: 'NVIDIA AI Chat // Tensor Core Acceleration', type: 'gpu' },
+      { slug: 'atlas-portfolio', title: 'ATLAS 3D // Titanium Glass Architecture', type: 'titanium' }
+    ];
+
+    const canvas = document.getElementById('render-canvas');
+    const statusBox = document.getElementById('status-box');
+    const progressFill = document.getElementById('progress-fill');
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setSize(1280, 720);
+    renderer.setPixelRatio(1);
+    renderer.setClearColor(0x08090A, 1);
+
+    // Studio lighting helper
+    function setupStudioLights(scene) {
+      const ambient = new THREE.AmbientLight(0x101113, 1.4);
+      scene.add(ambient);
+
+      const keyLight = new THREE.DirectionalLight(0xF5F1E8, 2.8);
+      keyLight.position.set(12, 16, 14);
+      scene.add(keyLight);
+
+      const rimLight = new THREE.DirectionalLight(0xD4FF3F, 2.2);
+      rimLight.position.set(-14, -8, 10);
+      scene.add(rimLight);
+
+      const bottomFill = new THREE.DirectionalLight(0x80612F, 0.8);
+      bottomFill.position.set(0, -10, 5);
+      scene.add(bottomFill);
+    }
+
+    // Material library: Black titanium, Champagne gold, Soft gold, Smoked glass
+    const MATS = {
+      champagne: new THREE.MeshStandardMaterial({ color: 0xD4FF3F, metalness: 0.94, roughness: 0.22 }),
+      softGold: new THREE.MeshStandardMaterial({ color: 0xCBB3E8, metalness: 0.90, roughness: 0.20 }),
+      darkGold: new THREE.MeshStandardMaterial({ color: 0x80612F, metalness: 0.92, roughness: 0.26 }),
+      titanium: new THREE.MeshStandardMaterial({ color: 0x222428, metalness: 0.88, roughness: 0.32 }),
+      smokedGlass: new THREE.MeshPhysicalMaterial({
+        color: 0x141517,
+        roughness: 0.08,
+        metalness: 0.05,
+        transmission: 0.85,
+        transparent: true,
+        opacity: 0.92,
+        ior: 1.54,
+        clearcoat: 1.0
+      }),
+      emissiveGold: new THREE.MeshBasicMaterial({ color: 0xCBB3E8 })
+    };
+
+    function createSceneForProject(type) {
+      const scene = new THREE.Scene();
+      setupStudioLights(scene);
+      const camera = new THREE.PerspectiveCamera(45, 1280 / 720, 0.1, 100);
+      camera.position.set(0, 2.5, 12);
+      camera.lookAt(0, 0, 0);
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      let updateFn = (t) => {};
+
+      if (type === 'terrain') {
+        // 1. SOLVEX NER: 3D Mountain Terrain with Champagne-Gold Transit Route Lines
+        const planeGeo = new THREE.PlaneGeometry(16, 12, 48, 36);
+        const pos = planeGeo.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+          const x = pos.getX(i);
+          const y = pos.getY(i);
+          // Elevation contours
+          const z = Math.sin(x * 0.6) * Math.cos(y * 0.8) * 1.5 + Math.sin(x * 1.4) * 0.4;
+          pos.setZ(i, z);
+        }
+        planeGeo.computeVertexNormals();
+
+        const terrainMat = new THREE.MeshStandardMaterial({
+          color: 0x121316,
+          wireframe: true,
+          metalness: 0.7,
+          roughness: 0.4
+        });
+        const terrain = new THREE.Mesh(planeGeo, terrainMat);
+        terrain.rotation.x = -Math.PI / 2.5;
+        terrain.position.y = -1.5;
+        group.add(terrain);
+
+        // Transit route curves
+        const curve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-6, -1.2, 3),
+          new THREE.Vector3(-3, 0.2, 1),
+          new THREE.Vector3(0, 0.8, -1),
+          new THREE.Vector3(3, -0.4, 0),
+          new THREE.Vector3(6, 0.5, -2)
+        ]);
+        const tubeGeo = new THREE.TubeGeometry(curve, 80, 0.08, 12, false);
+        const tube = new THREE.Mesh(tubeGeo, MATS.champagne);
+        group.add(tube);
+
+        // Location beacons
+        const beaconGeo = new THREE.SphereGeometry(0.22, 16, 16);
+        const b1 = new THREE.Mesh(beaconGeo, MATS.softGold); b1.position.copy(curve.getPoint(0.1));
+        const b2 = new THREE.Mesh(beaconGeo, MATS.softGold); b2.position.copy(curve.getPoint(0.5));
+        const b3 = new THREE.Mesh(beaconGeo, MATS.softGold); b3.position.copy(curve.getPoint(0.9));
+        group.add(b1, b2, b3);
+
+        updateFn = (t) => {
+          group.rotation.y = Math.sin(t * 0.3) * 0.25;
+          b1.position.y += Math.sin(t * 3) * 0.002;
+          b2.position.y += Math.cos(t * 3) * 0.002;
+          b3.position.y += Math.sin(t * 3 + 1) * 0.002;
+        };
+      } else if (type === 'rag') {
+        // 2. INTELLIPDF: 3D PDF Sheets, Vector Embedding Cluster, Similarity Rays
+        const docGroup = new THREE.Group();
+        for (let i = 0; i < 4; i++) {
+          const sheet = new THREE.Mesh(new THREE.BoxGeometry(2.4, 3.2, 0.05), MATS.smokedGlass);
+          sheet.position.set((i - 1.5) * 1.8, Math.sin(i) * 0.4, -i * 0.6);
+          sheet.rotation.y = (i - 1.5) * 0.18;
+          docGroup.add(sheet);
+
+          // Gold border frame
+          const frame = new THREE.LineSegments(
+            new THREE.EdgesGeometry(sheet.geometry),
+            new THREE.LineBasicMaterial({ color: 0xD4FF3F })
+          );
+          sheet.add(frame);
+        }
+        group.add(docGroup);
+
+        // Vector shards
+        const shardsGroup = new THREE.Group();
+        for (let i = 0; i < 30; i++) {
+          const shard = new THREE.Mesh(new THREE.TetrahedronGeometry(0.15), MATS.softGold);
+          shard.position.set(
+            (Math.random() - 0.5) * 8,
+            (Math.random() - 0.5) * 5,
+            (Math.random() - 0.5) * 4
+          );
+          shardsGroup.add(shard);
+        }
+        group.add(shardsGroup);
+
+        // Search Ray
+        const ray = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 10, 16), MATS.softGold);
+        ray.rotation.z = Math.PI / 3;
+        group.add(ray);
+
+        updateFn = (t) => {
+          docGroup.rotation.y = Math.sin(t * 0.4) * 0.3;
+          shardsGroup.rotation.y = t * 0.2;
+          ray.position.x = Math.sin(t * 1.5) * 2;
+        };
+      } else if (type === 'vision') {
+        // 3. LINKX: Multimodal Vision Panel & Feature Extraction Beams
+        const panel = new THREE.Mesh(new THREE.BoxGeometry(5.2, 3.2, 0.1), MATS.smokedGlass);
+        panel.add(new THREE.LineSegments(new THREE.EdgesGeometry(panel.geometry), new THREE.LineBasicMaterial({ color: 0xD4FF3F })));
+        group.add(panel);
+
+        // Scanning laser bar
+        const scanner = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 5.6, 16), MATS.softGold);
+        scanner.rotation.z = Math.PI / 2;
+        group.add(scanner);
+
+        // Floating post preview
+        const card = new THREE.Mesh(new THREE.BoxGeometry(3.2, 2.0, 0.08), MATS.titanium);
+        card.position.set(1.5, -0.6, 1.8);
+        card.add(new THREE.LineSegments(new THREE.EdgesGeometry(card.geometry), new THREE.LineBasicMaterial({ color: 0xCBB3E8 })));
+        group.add(card);
+
+        updateFn = (t) => {
+          panel.rotation.y = Math.sin(t * 0.3) * 0.25;
+          scanner.position.y = Math.sin(t * 2) * 1.4;
+          card.position.y = -0.6 + Math.sin(t * 1.5) * 0.15;
+        };
+      } else if (type === 'neural') {
+        // 4. ATLAS-AI: Hexagonal Multi-Model Neural Router Core
+        const coreGeo = new THREE.CylinderGeometry(1.6, 1.6, 0.4, 6);
+        const core = new THREE.Mesh(coreGeo, MATS.champagne);
+        core.rotation.x = Math.PI / 2;
+        group.add(core);
+
+        const glassRing = new THREE.Mesh(new THREE.TorusGeometry(3.2, 0.12, 16, 60), MATS.smokedGlass);
+        group.add(glassRing);
+
+        // 3 Provider satellite nodes (OpenAI, Gemini, Claude)
+        const satellites = [];
+        for (let i = 0; i < 3; i++) {
+          const sat = new THREE.Mesh(new THREE.DodecahedronGeometry(0.55), MATS.softGold);
+          satellites.push(sat);
+          group.add(sat);
+        }
+
+        updateFn = (t) => {
+          core.rotation.z = t * 0.4;
+          glassRing.rotation.x = Math.sin(t * 0.3) * 0.4;
+          glassRing.rotation.y = t * 0.2;
+          satellites.forEach((sat, idx) => {
+            const angle = t * 0.8 + (idx * Math.PI * 2) / 3;
+            sat.position.set(Math.cos(angle) * 3.8, Math.sin(angle) * 2.2, Math.sin(angle * 2) * 0.8);
+          });
+        };
+      } else if (type === 'iot') {
+        // 5. SMART AGRICULTURE: 3D Soil Strata, Sensor Node & Hydration Waves
+        const strataGroup = new THREE.Group();
+        for (let i = 0; i < 3; i++) {
+          const layer = new THREE.Mesh(new THREE.BoxGeometry(7, 0.8, 4), MATS.titanium);
+          layer.position.y = -i * 1.0;
+          strataGroup.add(layer);
+        }
+        group.add(strataGroup);
+
+        // Probe sensor cylinder
+        const probe = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 3.6, 24), MATS.champagne);
+        probe.position.set(0, 0.6, 0);
+        group.add(probe);
+
+        // Pulse rings
+        const rings = [];
+        for (let i = 0; i < 3; i++) {
+          const ring = new THREE.Mesh(new THREE.TorusGeometry(0.8 + i * 0.6, 0.04, 16, 36), MATS.softGold);
+          ring.rotation.x = Math.PI / 2;
+          ring.position.y = -1.2;
+          rings.push(ring);
+          group.add(ring);
+        }
+
+        updateFn = (t) => {
+          group.rotation.y = Math.sin(t * 0.25) * 0.35;
+          rings.forEach((r, idx) => {
+            const scale = 1 + ((t * 1.5 + idx * 0.6) % 2) * 0.5;
+            r.scale.set(scale, scale, scale);
+          });
+        };
+      } else if (type === 'seismic') {
+        // 6. BASE ISOLATION: Dual-Tower Seismic Comparative Dynamics
+        const baseFloor = new THREE.Mesh(new THREE.BoxGeometry(10, 0.4, 5), MATS.titanium);
+        baseFloor.position.y = -2.2;
+        group.add(baseFloor);
+
+        // Tower 1: Fixed base (severe resonance)
+        const t1 = new THREE.Mesh(new THREE.BoxGeometry(2, 4.4, 2), MATS.titanium);
+        t1.position.set(-2.5, 0.2, 0);
+        t1.add(new THREE.LineSegments(new THREE.EdgesGeometry(t1.geometry), new THREE.LineBasicMaterial({ color: 0x80612F })));
+        group.add(t1);
+
+        // Tower 2: Base isolated (calm)
+        const isolator1 = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.4, 16), MATS.champagne);
+        isolator1.position.set(1.8, -1.8, -0.6);
+        const isolator2 = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.4, 16), MATS.champagne);
+        isolator2.position.set(3.2, -1.8, 0.6);
+        group.add(isolator1, isolator2);
+
+        const t2 = new THREE.Mesh(new THREE.BoxGeometry(2, 4.4, 2), MATS.champagne);
+        t2.position.set(2.5, 0.4, 0);
+        t2.add(new THREE.LineSegments(new THREE.EdgesGeometry(t2.geometry), new THREE.LineBasicMaterial({ color: 0xCBB3E8 })));
+        group.add(t2);
+
+        updateFn = (t) => {
+          const groundTremor = Math.sin(t * 6) * 0.45;
+          baseFloor.position.x = groundTremor;
+          // Fixed tower amplifies resonant sway
+          t1.rotation.z = Math.sin(t * 6) * 0.16;
+          t1.position.x = -2.5 + groundTremor * 1.3;
+          // Base isolated tower stays upright with 85% dampening
+          t2.rotation.z = Math.sin(t * 6) * 0.02;
+          t2.position.x = 2.5 + groundTremor * 0.15;
+          group.rotation.y = Math.sin(t * 0.2) * 0.2;
+        };
+      } else if (type === 'gpu') {
+        // 7. NVIDIA AI CHAT: 3D Tensor Core Architecture & Streaming Pipeline
+        const chip = new THREE.Mesh(new THREE.BoxGeometry(4.4, 4.4, 0.3), MATS.titanium);
+        chip.add(new THREE.LineSegments(new THREE.EdgesGeometry(chip.geometry), new THREE.LineBasicMaterial({ color: 0xD4FF3F })));
+        chip.rotation.x = Math.PI / 4;
+        group.add(chip);
+
+        // Tensor Blocks
+        const blocks = [];
+        for (let x = -1; x <= 1; x++) {
+          for (let y = -1; y <= 1; y++) {
+            const blk = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.4), MATS.softGold);
+            blk.position.set(x * 1.2, y * 1.2, 0.2);
+            chip.add(blk);
+            blocks.push(blk);
+          }
+        }
+
+        updateFn = (t) => {
+          chip.rotation.z = t * 0.3;
+          blocks.forEach((b, idx) => {
+            b.position.z = 0.2 + Math.sin(t * 4 + idx) * 0.18;
+          });
+        };
+      } else {
+        // 8. ATLAS 3D PORTFOLIO: Architectural Titanium Loop & Smoked Glass Prism
+        const knotGeo = new THREE.TorusKnotGeometry(2.2, 0.65, 120, 24, 2, 3);
+        const knot = new THREE.Mesh(knotGeo, MATS.smokedGlass);
+        group.add(knot);
+
+        const outerGimbal = new THREE.Mesh(new THREE.TorusGeometry(4.2, 0.09, 24, 120), MATS.champagne);
+        group.add(outerGimbal);
+
+        const innerGimbal = new THREE.Mesh(new THREE.TorusGeometry(3.4, 0.07, 24, 120), MATS.softGold);
+        innerGimbal.rotation.x = Math.PI / 3;
+        group.add(innerGimbal);
+
+        updateFn = (t) => {
+          knot.rotation.y = t * 0.4;
+          knot.rotation.x = Math.sin(t * 0.3) * 0.3;
+          outerGimbal.rotation.y = t * 0.2;
+          outerGimbal.rotation.z = t * 0.15;
+          innerGimbal.rotation.x = Math.PI / 3 + t * 0.3;
+        };
+      }
+
+      return { scene, camera, updateFn };
+    }
+
+    // Record video for a single project
+    async function recordProjectVideo(project, index) {
+      statusBox.innerHTML = `Rendering <strong>${project.title}</strong> (${index + 1}/${PROJECTS.length})...<br/><span style="color:#A5A19A;">Recording 30fps stream to WebM container...</span>`;
+      progressFill.style.width = `${((index) / PROJECTS.length) * 100}%`;
+
+      const { scene, camera, updateFn } = createSceneForProject(project.type);
+
+      const stream = canvas.captureStream(30);
+      let recorder;
+      try {
+        recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9', videoBitsPerSecond: 4000000 });
+      } catch (e) {
+        recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+      }
+
+      const chunks = [];
+      recorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunks.push(e.data);
+      };
+
+      const recordPromise = new Promise((resolve) => {
+        recorder.onstop = () => {
+          const blob = new Blob(chunks, { type: 'video/webm' });
+          resolve(blob);
+        };
+      });
+
+      recorder.start();
+
+      const startTime = performance.now();
+      const DURATION = 9000; // 9 seconds of cinematic looping footage
+
+      await new Promise((done) => {
+        function renderLoop(now) {
+          const elapsed = now - startTime;
+          const t = elapsed / 1000;
+          updateFn(t);
+          renderer.render(scene, camera);
+
+          if (elapsed < DURATION) {
+            requestAnimationFrame(renderLoop);
+          } else {
+            recorder.stop();
+            done();
+          }
+        }
+        requestAnimationFrame(renderLoop);
+      });
+
+      const videoBlob = await recordPromise;
+      statusBox.innerHTML = `Uploading <strong>${project.slug}.webm</strong> (${(videoBlob.size / 1024).toFixed(1)} KB)...`;
+
+      // Upload to server.js
+      const uploadRes = await fetch('/api/save-video', {
+        method: 'POST',
+        headers: {
+          'x-video-filename': `${project.slug}.webm`,
+          'Content-Type': 'video/webm'
+        },
+        body: videoBlob
+      });
+
+      const json = await uploadRes.json();
+      console.log('Saved:', json);
+    }
+
+    async function logMsg(msg, data = {}) {
+      try {
+        await fetch('/api/telemetry-log', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ generatorLog: msg, ...data })
+        });
+      } catch (e) {}
+    }
+
+    async function runAll() {
+      await logMsg('Starting runAll in generator.html');
+      try {
+        for (let i = 0; i < PROJECTS.length; i++) {
+          const checkRes = await fetch(`/assets/videos/${PROJECTS[i].slug}.webm`, { method: 'HEAD' });
+          if (checkRes.ok) {
+            await logMsg(`Skipping already generated ${PROJECTS[i].slug}`);
+            continue;
+          }
+          await logMsg(`Recording ${PROJECTS[i].slug}`);
+          await recordProjectVideo(PROJECTS[i], i);
+        }
+        progressFill.style.width = '100%';
+        statusBox.innerHTML = '<span style="color: #10b981; font-weight: bold; font-size: 16px;">✓ ALL 8 CINEMATIC 3D VIDEOS GENERATED & SAVED TO assets/videos/</span><br/><a href="/" style="color: #D4FF3F; text-decoration: underline; margin-top: 8px; display: inline-block;">Return to ATLAS Portfolio</a>';
+        await logMsg('ALL VIDEOS FINISHED!');
+      } catch (err) {
+        await logMsg('Error in runAll', { error: err.message, stack: err.stack });
+        statusBox.innerHTML = `<span style="color: red;">Error: ${err.message}</span>`;
+      }
+    }
+
+    // Start automated generation
+    window.addEventListener('load', () => {
+      setTimeout(runAll, 400);
+    });
+  </script>
+</body>
+</html>

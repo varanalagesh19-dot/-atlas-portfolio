@@ -1,0 +1,324 @@
+/* ==========================================================================
+   ATLAS 2.0 — CONTACT VIEW (/contact) STYLES
+   ========================================================================== */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.contact-channels-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.contact-channel-card {
+  padding: 24px;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.contact-channel-card:hover {
+  border-color: var(--accent-border);
+}
+
+[data-theme="dark"] .contact-channel-card:hover {
+  border-color: var(--accent);
+}
+
+.channel-icon-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.channel-icon {
+  font-size: 1.8rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--faint);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.channel-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.channel-val {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--paper);
+  word-break: break-all;
+}
+
+.channel-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.channel-btn {
+  font-size: 0.8125rem;
+  padding: 8px 16px;
+}
+
+/* Telemetry Box */
+.telemetry-box {
+  padding: 24px;
+  border-radius: var(--radius);
+}
+
+.telemetry-box h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--paper);
+  margin: 0 0 16px 0;
+}
+
+.telemetry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.telemetry-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.t-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--mist);
+}
+
+.t-val {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+.status-active {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #10B981;
+}
+
+/* Contact Form Column */
+.contact-form-column {
+  padding: 36px;
+  border-radius: var(--radius);
+}
+
+.form-header {
+  margin-bottom: 24px;
+}
+
+.form-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--paper);
+  margin: 0 0 6px 0;
+}
+
+.form-header p {
+  font-size: 0.9rem;
+  color: var(--mist);
+  margin: 0;
+}
+
+.transmission-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--mist);
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px rgba(212, 255, 63, 0.45);
+}
+
+[data-theme="dark"] .form-input:focus,
+[data-theme="dark"] .form-select:focus,
+[data-theme="dark"] .form-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.form-input.input-invalid, .form-textarea.input-invalid {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.field-error {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #EF4444;
+  min-height: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.submit-btn {
+  padding: 12px 28px;
+  font-size: 0.9375rem;
+}
+
+.submit-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(203, 179, 232, 0.35);
+  border-top-color: var(--accent-ink);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+[data-theme="dark"] .spinner {
+  border-top-color: var(--accent);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.transmission-status-box {
+  padding: 20px;
+  border-radius: var(--radius);
+  margin-top: 16px;
+}
+
+.transmission-status-box.success {
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.transmission-status-box.error {
+  border: 1px solid rgba(227, 66, 52, 0.45);
+  background: rgba(227, 66, 52, 0.08);
+}
+
+.transmission-status-box.success h4 {
+  font-family: var(--font-display);
+  color: #10B981;
+  margin: 0 0 8px 0;
+}
+
+.transmission-status-box.error h4 {
+  font-family: var(--font-display);
+  color: #E34234;
+  margin: 0 0 8px 0;
+}
+
+.transmission-status-box p {
+  font-size: 0.875rem;
+  color: var(--paper);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form-column {
+    padding: 22px 16px;
+  }
+  .contact-channel-card {
+    padding: 18px 16px;
+  }
+  .telemetry-box {
+    padding: 18px 16px;
+  }
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+  .channel-actions .channel-btn {
+    flex: 1 1 calc(50% - 4px);
+    justify-content: center;
+    min-height: 42px;
+  }
+  .form-input, .form-select, .form-textarea {
+    font-size: 16px; /* Prevents auto-zoom on iOS Safari */
+  }
+}
+
+@media (max-width: 360px) {
+  .contact-form-column {
+    padding: 18px 12px;
+  }
+  .channel-actions .channel-btn {
+    flex: 1 1 100%;
+  }
+}

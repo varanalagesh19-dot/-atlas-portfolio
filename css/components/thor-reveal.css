@@ -1,0 +1,333 @@
+/* ==========================================================================
+   ATLAS — CINEMATIC THOR-INSPIRED ABOUT PAGE REVEAL
+   Storm atmosphere, electric lightning arcs, stylized hammer silhouette,
+   shockwave impact, and clean flash transition into About page.
+   ========================================================================== */
+
+.thor-reveal-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0B0B0B;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.thor-reveal-overlay.is-exiting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 1. Storm Atmosphere Backdrop & Vignette */
+.thor-storm-backdrop {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 45%, rgba(20, 24, 45, 0.8) 0%, rgba(11, 11, 15, 0.95) 60%, #070707 100%);
+  z-index: 1;
+}
+
+.thor-storm-clouds {
+  position: absolute;
+  inset: -20%;
+  background-image: 
+    radial-gradient(ellipse at 30% 20%, rgba(203, 179, 232, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(93, 230, 255, 0.15) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 60%, rgba(15, 23, 42, 0.6) 0%, transparent 60%);
+  filter: blur(40px);
+  animation: thorCloudDrift 3.5s ease-in-out infinite alternate;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes thorCloudDrift {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+  100% { transform: scale(1.08) translate(-10px, 8px); opacity: 1; }
+}
+
+/* 2. Fullscreen Lightning & Sparks Canvas */
+.thor-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* 3. Center Focal Stage: Stylized Lightning-Hammer Silhouette */
+.thor-focal-stage {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.thor-hammer-silhouette {
+  width: clamp(140px, 22vw, 220px);
+  height: auto;
+  filter: drop-shadow(0 0 16px rgba(93, 230, 255, 0.4)) drop-shadow(0 0 35px rgba(203, 179, 232, 0.3));
+  transform: translateY(-20px) scale(0.9);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, filter 0.25s ease;
+}
+
+.thor-hammer-silhouette.is-visible {
+  opacity: 0.95;
+  transform: translateY(0) scale(1);
+}
+
+.thor-hammer-silhouette.is-impact {
+  transform: translateY(12px) scale(1.08);
+  filter: drop-shadow(0 0 35px #5DE6FF) drop-shadow(0 0 65px #FFFFFF) drop-shadow(0 0 90px rgba(203, 179, 232, 0.8));
+}
+
+/* Stylized Hammer Vector Styling */
+.thor-hammer-head {
+  fill: #151515;
+  stroke: #CBB3E8;
+  stroke-width: 2;
+}
+
+.thor-hammer-bevel {
+  fill: #22252F;
+  stroke: #5DE6FF;
+  stroke-width: 1.5;
+}
+
+.thor-hammer-glyph {
+  fill: none;
+  stroke: #5DE6FF;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px #5DE6FF);
+}
+
+.thor-hammer-haft {
+  fill: #111111;
+  stroke: #CBB3E8;
+  stroke-width: 1.5;
+}
+
+.thor-hammer-wrap {
+  stroke: #4B4656;
+  stroke-width: 1.5;
+}
+
+.thor-hammer-pommel {
+  fill: #22252F;
+  stroke: #D4FF3F;
+  stroke-width: 1.5;
+}
+
+/* 4. Shockwave Impact Ring */
+.thor-shockwave-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 3px solid rgba(93, 230, 255, 0.9);
+  box-shadow: 
+    0 0 25px rgba(93, 230, 255, 0.8),
+    inset 0 0 25px rgba(203, 179, 232, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.thor-shockwave-ring.is-blasting {
+  animation: thorShockwaveBlast 0.65s cubic-bezier(0.15, 0.9, 0.35, 1) forwards;
+}
+
+@keyframes thorShockwaveBlast {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 1;
+    border-width: 4px;
+  }
+  60% {
+    opacity: 0.75;
+    border-width: 2.5px;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4.8);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+/* Secondary outer shockwave ring */
+.thor-shockwave-ring-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 2px solid rgba(203, 179, 232, 0.8);
+  box-shadow: 0 0 35px rgba(203, 179, 232, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.thor-shockwave-ring-outer.is-blasting {
+  animation: thorShockwaveOuterBlast 0.75s 0.06s cubic-bezier(0.15, 0.9, 0.35, 1) forwards;
+}
+
+@keyframes thorShockwaveOuterBlast {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(5.5);
+    opacity: 0;
+  }
+}
+
+/* 5. Clean Lightning Flash & Screen Impact */
+.thor-screen-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, rgba(93, 230, 255, 0.85) 40%, rgba(203, 179, 232, 0.4) 80%, transparent 100%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 6;
+  mix-blend-mode: screen;
+}
+
+.thor-screen-flash.is-flashing {
+  animation: thorFlashBurst 0.42s ease-out forwards;
+}
+
+@keyframes thorFlashBurst {
+  0% { opacity: 0; }
+  25% { opacity: 0.95; }
+  100% { opacity: 0; }
+}
+
+/* Subtle camera impulse / screen impact on strike */
+.thor-impact-shake {
+  animation: thorImpactShake 0.16s ease-in-out;
+}
+
+@keyframes thorImpactShake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3px, 3px); }
+  40% { transform: translate(3px, -2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* 6. Cinematic Header & Skip Pill */
+.thor-meta-bar {
+  position: absolute;
+  top: max(20px, env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 4vw, 40px);
+  z-index: 7;
+}
+
+.thor-status-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5DE6FF;
+  background: rgba(93, 230, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(93, 230, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.thor-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5DE6FF;
+  box-shadow: 0 0 8px #5DE6FF;
+  animation: thorDotPulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes thorDotPulse {
+  from { opacity: 0.4; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+.thor-skip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #F8F7F4;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(203, 179, 232, 0.3);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.thor-skip-btn:hover {
+  background: rgba(203, 179, 232, 0.22);
+  border-color: #CBB3E8;
+  transform: translateY(-1px);
+}
+
+.thor-skip-btn:focus-visible {
+  outline: 2px solid #5DE6FF;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .thor-reveal-overlay {
+    transition: opacity 0.1s ease !important;
+  }
+  .thor-storm-clouds,
+  .thor-shockwave-ring,
+  .thor-shockwave-ring-outer,
+  .thor-screen-flash,
+  .thor-impact-shake {
+    animation: none !important;
+  }
+  .thor-hammer-silhouette {
+    transition: none !important;
+    transform: none !important;
+  }
+}
