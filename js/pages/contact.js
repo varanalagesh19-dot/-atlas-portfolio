@@ -104,7 +104,9 @@ export function renderContactPage() {
           id="contact-form" 
           name="contact" 
           method="POST" 
+          action="/" 
           data-netlify="true" 
+          data-netlify-honeypot="bot-field" 
           netlify-honeypot="bot-field" 
           class="transmission-form" 
           novalidate

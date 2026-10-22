@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ATLAS Form Discovery</title>
+  </head>
+  <body>
+    <!-- Netlify Forms Static Prerender Definition for SPA -->
+    <form 
+      name="contact" 
+      method="POST" 
+      action="/" 
+      data-netlify="true" 
+      netlify 
+      data-netlify-honeypot="bot-field" 
+      netlify-honeypot="bot-field" 
+      hidden
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>

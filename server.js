@@ -265,6 +265,9 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: err.message }));
     });
+    return;
+  }
+
   // Local Form Submission Simulator (emulates Netlify Forms 200 OK during local dev)
   if (req.method === 'POST' && (reqUrl === '/' || reqUrl === '/index.html' || reqUrl === '/contact')) {
     let body = '';
